@@ -46,3 +46,11 @@ def test_rejected_selection_leaves_event_unchanged(sample_event):
         selection_core.submit_selection(
             sample_event, "cli_100", ["med_9"], ["add_to_album"])
     assert sample_event == before
+
+
+@pytest.mark.req("REQ-SEL-06")
+def test_only_the_events_client_may_select(sample_event):
+    with pytest.raises(selection_core.SelectionError) as err:
+        selection_core.submit_selection(
+            sample_event, "cli_999", ["med_1"], ["add_to_album"])
+    assert err.value.code == "FORBIDDEN"
