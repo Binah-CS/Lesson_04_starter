@@ -20,3 +20,11 @@ def test_valid_selection_is_recorded_on_the_event(sample_event):
 @pytest.mark.req("REQ-SEL-03")
 def test_available_services_lists_enabled_services_only(sample_event):
     assert selection_core.available_services(sample_event) == ["add_to_album"]
+
+
+@pytest.mark.req("REQ-SEL-01")
+def test_submit_selection_empty_media(sample_event):
+    with pytest.raises(selection_core.SelectionError) as exc_info:
+        selection_core.submit_selection(sample_event, "cli_100", [], ["add_to_album"])
+    
+    assert str(exc_info.value) == "SELECTION_EMPTY"
