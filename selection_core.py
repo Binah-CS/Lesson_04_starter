@@ -41,6 +41,10 @@ def submit_selection(event: dict, actor_id: str, media_ids: list, service_codes:
         raise SelectionError("SELECTION_EMPTY")
     if len(media_ids) != len(set(media_ids)):
         raise SelectionError("DUPLICATE_MEDIA")
+    valid_media_ids = _media_ids_of(event)
+    for media_id in media_ids:
+        if media_id not in valid_media_ids:
+            raise SelectionError("MEDIA_NOT_IN_EVENT")
     enabled = available_services(event)
     for code in service_codes:
         if code not in enabled:
