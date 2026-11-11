@@ -22,9 +22,9 @@ def test_available_services_lists_enabled_services_only(sample_event):
     assert selection_core.available_services(sample_event) == ["add_to_album"]
 
 
-@pytest.mark.req("REQ-SEL-01")
-def test_submit_selection_empty_media(sample_event):
+@pytest.mark.req("REQ-SEL-05")
+def test_submit_selection_duplicate_media(sample_event):
     with pytest.raises(selection_core.SelectionError) as exc_info:
-        selection_core.submit_selection(sample_event, "cli_100", [], ["add_to_album"])
+        selection_core.submit_selection(sample_event, "cli_100", ["med_1", "med_1"], ["add_to_album"])
     
-    assert str(exc_info.value) == "SELECTION_EMPTY"
+    assert str(exc_info.value) == "DUPLICATE_MEDIA"
