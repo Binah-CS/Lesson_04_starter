@@ -49,7 +49,7 @@ def test_unauthorized_client_is_forbidden(sample_event):
     assert err.value.code == "FORBIDDEN"
 
 
-    @pytest.mark.req("REQ-SEL-04")
+@pytest.mark.req("REQ-SEL-04")
 def test_failed_selection_leaves_event_unchanged(sample_event):
     initial_selections_count = len(sample_event.get("selections", []))
     with pytest.raises(selection_core.SelectionError):
