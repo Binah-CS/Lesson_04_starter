@@ -47,3 +47,13 @@ def test_unauthorized_client_is_forbidden(sample_event):
             sample_event, "wrong_client", ["med_1"], ["add_to_album"])
 
     assert err.value.code == "FORBIDDEN"
+
+
+    @pytest.mark.req("REQ-SEL-04")
+def test_failed_selection_leaves_event_unchanged(sample_event):
+    initial_selections_count = len(sample_event.get("selections", []))
+    with pytest.raises(selection_core.SelectionError):
+        selection_core.submit_selection(
+            sample_event, "cli_100", [], ["add_to_album"])
+
+    assert len(sample_event.get("selections", [])) == initial_selections_count
