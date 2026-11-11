@@ -34,7 +34,16 @@ def test_submit_selection_duplicate_media(sample_event):
 @pytest.mark.req("REQ-SEL-02")     
 def test_media_from_another_event_is_rejected(sample_event):     
     with pytest.raises(selection_core.SelectionError) as err:     
-        selection_core.submit_selection(     
+        selection_core.submit_selection(   
             sample_event, "cli_100", ["med_999"], ["add_to_album"])     
  
     assert err.value.code == "MEDIA_NOT_IN_EVENT"     
+
+
+@pytest.mark.req("REQ-SEL-06")
+def test_unauthorized_client_is_forbidden(sample_event):
+    with pytest.raises(selection_core.SelectionError) as err:
+        selection_core.submit_selection(
+            sample_event, "wrong_client", ["med_1"], ["add_to_album"])
+
+    assert err.value.code == "FORBIDDEN"
