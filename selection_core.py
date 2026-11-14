@@ -38,6 +38,8 @@ def submit_selection(event: dict, actor_id: str, media_ids: list, service_codes:
     event_media = _media_ids_of(event)
     if any(m not in event_media for m in media_ids):
         raise SelectionError("MEDIA_NOT_IN_EVENT")
+    if len(set(media_ids)) != len(media_ids):
+        raise SelectionError("DUPLICATE_MEDIA")
     if actor_id != event.get("client_id"):
         raise SelectionError("FORBIDDEN")
     if not isinstance(media_ids, list) or len(media_ids) == 0:
