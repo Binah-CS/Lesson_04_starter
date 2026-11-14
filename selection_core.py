@@ -35,7 +35,7 @@ def submit_selection(event: dict, actor_id: str, media_ids: list, service_codes:
     Returns the new selection. Raises SelectionError on any rule violation,
     and in that case leaves the event unchanged.
     """
-        event_media = _media_ids_of(event)
+    event_media = _media_ids_of(event)
     if any(m not in event_media for m in media_ids):
         raise SelectionError("MEDIA_NOT_IN_EVENT")
     if actor_id != event.get("client_id"):
