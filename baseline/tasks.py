@@ -4,7 +4,7 @@ from pathlib import Path
 
 
 def count_selected(media_ids: list[str]) -> int:
-    return len(set(media_ids))
+    return len(media_ids)
 
 
 def group_by_gallery(media: list[dict]) -> dict[str, list[str]]:
