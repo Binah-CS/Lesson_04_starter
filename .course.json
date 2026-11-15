@@ -1,7 +1,7 @@
 {
-  "lesson": 5,
+  "lesson": 4,
   "test_imports": ["selection_core", "baseline", "baseline.tasks"],
-  "spec": true,
-  "decision_log": true,
+  "spec": false,
+  "decision_log": false,
   "upstream": "https://github.com/Binah-CS/Lesson_04_starter.git"
 }
